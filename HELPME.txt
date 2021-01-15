@@ -1,0 +1,7 @@
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned <-- in case something doesn't work
+
+# Run React app
+npm run client
+
+# Run NodeJS server
+node server
