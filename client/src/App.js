@@ -8,9 +8,15 @@ class App extends Component {
   };
   
   componentDidMount() {
-    axios.get('/api/v1/say-something').then((res) => {
-      const response = res.data;
-      this.setState({response});
+    axios({
+        method: "post",
+        url: '/api/v1/say-post',
+        data: {
+          message: ":)"
+        }
+      }).then((res) => {
+        const response = res.data;
+        this.setState({response});
     });
   }
 
