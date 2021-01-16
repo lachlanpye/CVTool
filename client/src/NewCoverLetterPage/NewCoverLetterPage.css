@@ -1,0 +1,9 @@
+div {
+    animation-name: "new-cover-letter";
+    animation-duration: 1s;
+}
+
+@keyframes new-cover-letter {
+    from {opacity: 0}
+    to {opacity: 1}
+}

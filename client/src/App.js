@@ -4,7 +4,8 @@ import './App.css';
 import Sidebar from './Sidebar/Sidebar';
 import HomePage from './HomePage/HomePage';
 import FindPage from './FindPage/FindPage';
-import UploadPage from './UploadPage/UploadPage';
+import NewResumePage from './NewResumePage/NewResumePage';
+import NewCoverLetterPage from './NewCoverLetterPage/NewCoverLetterPage';
 
 class App extends Component {
   constructor(props) {
@@ -29,8 +30,11 @@ class App extends Component {
       case "find":
         page = <FindPage />;
         break;
-      case "upload":
-        page = <UploadPage />;
+      case "new-resume":
+        page = <NewResumePage />;
+        break;
+      case "new-cover-letter":
+        page = <NewCoverLetterPage />;
         break;
       default:
         break;

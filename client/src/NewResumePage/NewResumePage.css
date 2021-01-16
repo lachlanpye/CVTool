@@ -1,9 +1,9 @@
 div {
-    animation-name: "upload";
+    animation-name: "new_resume";
     animation-duration: 1s;
 }
 
-@keyframes upload {
+@keyframes new_resume {
     from {opacity: 0}
     to {opacity: 1}
 }
