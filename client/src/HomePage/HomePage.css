@@ -1,0 +1,9 @@
+div {
+    animation-name: "home";
+    animation-duration: 1s;
+}
+
+@keyframes home {
+    from {opacity: 0}
+    to {opacity: 1}
+}

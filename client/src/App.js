@@ -1,30 +1,45 @@
 import React, { Component } from 'react';
 import './App.css';
-import axios from 'axios'
+
+import Sidebar from './Sidebar/Sidebar';
+import HomePage from './HomePage/HomePage';
+import FindPage from './FindPage/FindPage';
+import UploadPage from './UploadPage/UploadPage';
 
 class App extends Component {
-  state = {
-    response: {}
-  };
-  
-  componentDidMount() {
-    axios({
-        method: "post",
-        url: '/api/v1/say-post',
-        data: {
-          message: ":)"
-        }
-      }).then((res) => {
-        const response = res.data;
-        this.setState({response});
+  constructor(props) {
+    super(props);
+
+    this.state = { current: "home" };
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(message) {
+    this.setState({
+      current: message
     });
   }
 
   render() {
+    let page = <div/>
+    switch (this.state.current) {
+      case "home":
+        page = <HomePage />
+        break;
+      case "find":
+        page = <FindPage />;
+        break;
+      case "upload":
+        page = <UploadPage />;
+        break;
+      default:
+        break;
+    }
+
     return (
       <div className="App">
-        <h1>Hello from the frontend!</h1>
-        <h1>{this.state.response.body}</h1>
+        <Sidebar changePage={ this.handleClick }/>
+        { page }
       </div>
     );
   }

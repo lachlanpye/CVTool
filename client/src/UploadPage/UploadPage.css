@@ -1,0 +1,9 @@
+div {
+    animation-name: "upload";
+    animation-duration: 1s;
+}
+
+@keyframes upload {
+    from {opacity: 0}
+    to {opacity: 1}
+}

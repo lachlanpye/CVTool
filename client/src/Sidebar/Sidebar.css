@@ -1,0 +1,43 @@
+.sidenav {
+    height: 100%;
+    width: 160px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+
+    background-color: darkslategrey;
+    overflow-x: hidden;
+    padding-top: 20px;
+
+    justify-content: center;
+    align-items: center;
+
+}
+
+.sidenav button {
+    padding: 12px 8px 12px 16px;
+    display: block;
+
+    color: #818181;
+    text-decoration: none;
+    font-size: 25px;
+
+    background-color: darkslategrey;
+    border: none;
+}
+
+.sidenav button:hover {
+    color: #f1f1f1;
+    cursor: pointer;
+}
+
+.sidenav button:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav button {font-size: 18px;}
+  }
