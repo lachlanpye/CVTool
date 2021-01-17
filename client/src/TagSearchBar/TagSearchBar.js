@@ -15,6 +15,7 @@ class TagSearchBar extends Component {
         };
 
         this.addTag = this.addTag.bind(this);
+        this.removeTag = this.removeTag.bind(this);
         this.onTagInputChange = this.onTagInputChange.bind(this);
       }
 
@@ -36,10 +37,19 @@ class TagSearchBar extends Component {
     }
 
     addTag(event) {
-        this.setState(state => {
-            const currentTagList = state.currentTagList.push(this.state.tagInputValue);
-            return { currentTagList }
-        });
+        this.setState(prevState => ({
+            currentTagList: [...prevState.currentTagList, prevState.tagInputValue],
+            tagInputValue: ""
+        }));
+    }
+
+    removeTag(tag) {
+        let newTagList = [...this.state.currentTagList];
+        let index = newTagList.indexOf(tag);
+        if (index !== -1) {
+            newTagList.splice(index, 1);
+            this.setState({currentTagList: newTagList});
+        }
     }
 
     render() {
@@ -55,7 +65,7 @@ class TagSearchBar extends Component {
                                 </datalist>
                             <input type="button" value="Add tag" onClick={this.addTag}/>
                         </div>
-                        <TagListBar tagList={this.state.currentTagList}/>
+                        <TagListBar tagList={this.state.currentTagList} onRemoveTag={this.removeTag}/>
                     </div>;
         }
         else {

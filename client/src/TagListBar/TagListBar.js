@@ -5,10 +5,10 @@ import './TagListBar.css';
 class TagListBar extends Component {
     render() {
         var html = <div/>;
-        if (this.props.tagList.data !== undefined) {
+        if (this.props.tagList.length > 0) {
             html =  <div>
-                        {this.props.tagList.data.map((tag) => {
-                            return <input type="button" classType="tagListButton" value={tag} />;
+                        {this.props.tagList.map((tag) => {
+                            return <input type="button" classType="tagListButton" value={tag} onClick={() => this.props.onRemoveTag(tag)} />;
                         })}
                     </div>
         }
