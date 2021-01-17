@@ -2,8 +2,23 @@ div {
     animation-name: "new-cover-letter";
     animation-duration: 1s;
 }
-
 @keyframes new-cover-letter {
     from {opacity: 0}
     to {opacity: 1}
+}
+
+.inputDiv {
+    padding-top: 10px;
+    float: left;
+    clear: left;
+}
+
+#cv-name {
+    width: 70%;
+    max-width: 300px;
+}
+#cv-text {
+    resize: vertical;
+    width: 80%;
+    max-width: 650px;
 }

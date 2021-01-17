@@ -1,6 +1,9 @@
 .App {
-  text-align: center;
   margin-left: 210px;
+  padding-left: 60px;
+}
+@media screen and (max-width: 450px) {
+  .App {margin-left: 90px; padding-left: 15px;}
 }
 
 .example-enter {

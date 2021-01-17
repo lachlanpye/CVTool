@@ -4,8 +4,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import MetaTags from 'react-meta-tags';
+
 ReactDOM.render(
   <React.StrictMode>
+    <MetaTags>
+      <title>CV Tool</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
+    </MetaTags>
     <App />
   </React.StrictMode>,
   document.getElementById('root')

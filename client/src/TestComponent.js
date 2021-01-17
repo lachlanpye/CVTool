@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './TestComponent.css';
 import axios from 'axios'
 
 class App extends Component {
@@ -16,7 +15,7 @@ class App extends Component {
           message: ":)"
         }
       }).then((res) => {
-        const response = res.data;
+        let response = res.data;
         this.setState({response});
     });
   }
