@@ -49,7 +49,6 @@ class NewCoverLetterPage extends Component {
     }
 
     render() {
-        console.log("yea");
         return (
             <div>
                 <h1>New cover letter page</h1>

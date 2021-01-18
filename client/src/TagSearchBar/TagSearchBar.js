@@ -17,9 +17,14 @@ class TagSearchBar extends Component {
         this.addTag = this.addTag.bind(this);
         this.removeTag = this.removeTag.bind(this);
         this.onTagInputChange = this.onTagInputChange.bind(this);
+        this.refreshTags = this.refreshTags.bind(this);
       }
 
     componentDidMount() {
+        this.refreshTags();
+    }
+
+    refreshTags() {
         axios({
             method: "get",
             url: "/api/v1/get-tags",
@@ -38,6 +43,16 @@ class TagSearchBar extends Component {
 
     addTag(event) {
         if (this.state.tagInputValue.length > 0) {
+            axios({
+                method: "post",
+                url: "/api/v1/add-tag",
+                data: {
+                    tag: this.state.tagInputValue
+                }
+            }).then({
+                
+            });
+
             this.setState(prevState => ({
                 currentTagList: [...prevState.currentTagList, prevState.tagInputValue],
                 tagInputValue: ""
