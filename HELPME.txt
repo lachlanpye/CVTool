@@ -6,6 +6,12 @@ npm run client
 # Run NodeJS server
 node server
 
+# Run both
+npm run dev
+
+# Build
+npm run client:build
+
 #API endpoints:
 
 GET: "get-tags"
