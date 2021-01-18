@@ -5,3 +5,14 @@ npm run client
 
 # Run NodeJS server
 node server
+
+#API endpoints:
+
+GET: "get-tags"
+POST: "add-tag" { tag: string }
+POST: "submit-cover-letter" { name: string, content: string, tags: array}
+POST: "submit-resume"
+GET: "get-cover-letter-list"
+GET: "get-resume-list"
+POST: "get-cover-letter"
+POST: "get-resume"

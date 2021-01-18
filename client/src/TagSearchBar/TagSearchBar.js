@@ -37,10 +37,14 @@ class TagSearchBar extends Component {
     }
 
     addTag(event) {
-        this.setState(prevState => ({
-            currentTagList: [...prevState.currentTagList, prevState.tagInputValue],
-            tagInputValue: ""
-        }));
+        if (this.state.tagInputValue.length > 0) {
+            this.setState(prevState => ({
+                currentTagList: [...prevState.currentTagList, prevState.tagInputValue],
+                tagInputValue: ""
+            }), () => {
+                this.props.onTagChange(this.state.currentTagList);
+            });
+        }
     }
 
     removeTag(tag) {
