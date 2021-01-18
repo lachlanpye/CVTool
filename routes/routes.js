@@ -9,6 +9,7 @@ const submitResume = require('./../controllers/submitResume');
 const getCoverLetterList = require('./../controllers/getCoverLetterList');
 const getResumeList = require('./../controllers/getResumeList');
 const getCoverLetter = require('./../controllers/getCoverLetter');
+const getResume = require('./../controllers/getResume');
 
 router.get('/say-something', controllers.saySomething);
 router.get('/get-tags', getTags.getTags);
@@ -21,5 +22,6 @@ router.get('/get-cover-letter-list', getCoverLetterList.getCoverLetterList);
 router.get('/get-resume-list', getResumeList.getResumeList);
 
 router.post('/get-cover-letter', getCoverLetter.getCoverLetter);
+router.post('/get-resume', getResume.getResume);
 
 module.exports = router;
