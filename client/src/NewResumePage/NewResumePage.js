@@ -11,10 +11,13 @@ class NewResumePage extends Component {
         this.state = {
             resumeFileName: "",
             resumeFile: "",
-            previewFile: null
+
+            showSubmitOption: false
         };
 
         this.onResumeFileNameChange = this.onResumeFileNameChange.bind(this);
+        this.onResumeUploadSuccess = this.onResumeUploadSuccess.bind(this)
+        this.onResumeUploadFailure = this.onResumeUploadFailure.bind(this);
         this.onResumeFileChange = this.onResumeFileChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
@@ -28,7 +31,17 @@ class NewResumePage extends Component {
         var file = event.target.files[0];
         this.setState({
             resumeFile: file,
-            previewFile: file
+        });
+    }
+
+    onResumeUploadSuccess() {
+        this.setState({
+            showSubmitOption: true
+        });
+    }
+    onResumeUploadFailure() {
+        this.setState({
+            showSubmitOption: false
         });
     }
 
@@ -41,6 +54,13 @@ class NewResumePage extends Component {
     }
 
     render() {
+        var submit = <div/>;
+        if (this.state.showSubmitOption) {
+            submit =    <div className="inputDiv">
+                            <input type="button" value="Submit" onClick={this.onSubmit}/>
+                        </div>;
+        }
+
         return (
             <div>
                 <h1>New resume page</h1>
@@ -53,12 +73,10 @@ class NewResumePage extends Component {
                 <div className="inputDiv">
                 <label>Select resume: </label>
                 <input type="file" id="resume-file" onChange={this.onResumeFileChange}/>
-                <PDFViewer pdf={this.state.previewFile} />
+                <PDFViewer pdf={this.state.resumeFile} onSuccess={this.onResumeUploadSuccess} onFailure={this.onResumeUploadFailure}/>
                 </div>
                 
-                <div className="inputDiv">
-                <input type="button" value="Submit" onClick={this.onSubmit}/>
-                </div>
+                { submit }
             </div>
         );
     }
