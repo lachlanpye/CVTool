@@ -14,11 +14,11 @@ div {
 }
 
 #cv-name {
-    width: 70%;
+    width: 75%;
     max-width: 300px;
 }
 #cv-text {
     resize: vertical;
     width: 80%;
-    max-width: 650px;
+    max-width: 750px;
 }

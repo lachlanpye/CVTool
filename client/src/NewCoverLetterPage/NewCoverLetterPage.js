@@ -49,7 +49,6 @@ class NewCoverLetterPage extends Component {
     }
 
     render() {
-        console.log("yea");
         return (
             <div>
                 <h1>New cover letter page</h1>
@@ -61,7 +60,7 @@ class NewCoverLetterPage extends Component {
 
                 <div className="inputDiv">
                 <label>Cover letter content: </label>
-                <textarea id="cv-text" value={this.state.cvTextValue} onChange={this.onTextChange}/>
+                <textarea id="cv-text" rows="20" columns="30" value={this.state.cvTextValue} onChange={this.onTextChange}/>
                 </div>
 
                 <div className="inputDiv">
