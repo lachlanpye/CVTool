@@ -41,7 +41,7 @@ class App extends Component {
     }
 
     return (
-      <div className="App">
+      <div id="page-background">
         <Sidebar changePage={ this.handleClick }/>
         { page }
       </div>

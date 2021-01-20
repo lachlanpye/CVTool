@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import './NewResumePage.css';
 
 import axios from 'axios';
+
 import PDFViewer from './../PDFViewer/PDFViewer';
+import FileChooser from './FileChooser/FileChooser';
+import TextInput from './../TextInput/TextInput';
+import Button from '../Button/Button';
 
 class NewResumePage extends Component {
     constructor(props) {
@@ -27,8 +31,7 @@ class NewResumePage extends Component {
             resumeFileName: event.target.value
         });
     }
-    onResumeFileChange(event) {
-        var file = event.target.files[0];
+    onResumeFileChange(file) {
         this.setState({
             resumeFile: file,
         });
@@ -57,7 +60,7 @@ class NewResumePage extends Component {
         var submit = <div/>;
         if (this.state.showSubmitOption) {
             submit =    <div className="inputDiv">
-                            <input type="button" value="Submit" onClick={this.onSubmit}/>
+                            <Button value="Submit" onClick={this.onSubmit}/>
                         </div>;
         }
 
@@ -67,12 +70,12 @@ class NewResumePage extends Component {
 
                 <div className="inputDiv">
                 <label>Save resume as: </label>
-                <input type="text" id="resume-file-name" value={this.state.resumeFileName} onChange={this.onResumeFileNameChange}/>
+                <TextInput id="resume-file-name" value={this.state.resumeFileName} onChange={this.onResumeFileNameChange}/>
                 </div>
 
                 <div className="inputDiv">
-                <label>Select resume: </label>
-                <input type="file" id="resume-file" onChange={this.onResumeFileChange}/>
+                <label>Select resume: </label><br/>
+                <FileChooser handleFile={this.onResumeFileChange}/><br/>
                 <PDFViewer pdf={this.state.resumeFile} onSuccess={this.onResumeUploadSuccess} onFailure={this.onResumeUploadFailure}/>
                 </div>
                 

@@ -3,6 +3,8 @@ import axios from 'axios';
 import './NewCoverLetterPage.css';
 
 import TagSearchBar from '../TagSearchBar/TagSearchBar';
+import TextInput from '../TextInput/TextInput';
+import Button from '../Button/Button';
 
 class NewCoverLetterPage extends Component {
     constructor(props) {
@@ -55,7 +57,7 @@ class NewCoverLetterPage extends Component {
 
                 <div className="inputDiv">
                 <label>Name of cover letter: </label>
-                <input id="cv-name" type="text" value={this.state.cvNameValue} onChange={this.onNameChange}/>
+                <TextInput id="cv-name" value={this.state.cvNameValue} onChange={this.onNameChange}/>
                 </div>
 
                 <div className="inputDiv">
@@ -69,7 +71,7 @@ class NewCoverLetterPage extends Component {
                 </div>
 
                 <div className="inputDiv">
-                <input type="button" id="submit-button" value="Submit" onClick={this.onSubmit}/>
+                <Button id="submit-button" value="Submit" onClick={this.onSubmit}/>
                 </div>
             </div>
         );

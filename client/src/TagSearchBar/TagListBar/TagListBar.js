@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import './TagListBar.css';
+import Button from '../../Button/Button';
 
 class TagListBar extends Component {
     render() {
@@ -8,7 +9,7 @@ class TagListBar extends Component {
         if (this.props.tagList.length > 0) {
             html =  <div>
                         {this.props.tagList.map((tag, index) => {
-                            return <input type="button" classtype="tagListButton" key={index} value={tag} onClick={() => this.props.onRemoveTag(tag)} />;
+                            return <Button key={index} value={tag} onClick={() => this.props.onRemoveTag(tag)} />;
                         })}
                     </div>
         }

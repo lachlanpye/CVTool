@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import TagListBar from './../TagListBar/TagListBar';
+import TagListBar from './TagListBar/TagListBar';
+import TextInput from '../TextInput/TextInput';
+import Button from '../Button/Button';
+
 import './TagSearchBar.css';
 
 class TagSearchBar extends Component {
@@ -61,13 +64,13 @@ class TagSearchBar extends Component {
         if (this.state.fullTagList.data !== undefined) {
             html =  <div>
                         <div id="tag-search-bar">
-                            <input id="tag-search" list="tag-datalist" type="text" value={this.state.tagInputValue} onChange={this.onTagInputChange}/>
+                            <TextInput id="tag-search" list="tag-datalist" placeholder="Search..." value={this.state.tagInputValue} onChange={this.onTagInputChange}/>
                                 <datalist id="tag-datalist">
                                     {this.state.fullTagList.data.map((item, key) => {
                                         return <option key={key} value={item}/>
                                     })}
                                 </datalist>
-                            <input type="button" value="Add tag" onClick={this.addTag}/>
+                            <Button value="Add tag" onClick={this.addTag}/>
                         </div>
                         <TagListBar tagList={this.state.currentTagList} onRemoveTag={this.removeTag}/>
                     </div>;
@@ -75,8 +78,8 @@ class TagSearchBar extends Component {
         else {
             html =  <div>
                         <div id="tag-search-bar">
-                            <input id="tag-search" type="text"/>
-                            <input type="button" value="Add tag"/>
+                            <TextInput id="tag-search"/>
+                            <Button value="Add tag"/>
                         </div>
                         <TagListBar tagList={this.state.currentTagList}/>
                     </div>;

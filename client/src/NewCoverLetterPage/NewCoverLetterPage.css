@@ -17,8 +17,19 @@ div {
     width: 75%;
     max-width: 300px;
 }
+
 #cv-text {
     resize: vertical;
     width: 80%;
     max-width: 750px;
+
+    background-color: white;
+    border: 1.8px solid darkslategray;
+    border-radius: 5px;
+
+    padding: 5px;
+    padding-left: 10px;
+}
+#cv-text:focus {
+    background-color: #dfdfdf;
 }

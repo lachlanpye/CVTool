@@ -1,0 +1,16 @@
+.button-class {
+    background-color: #8f4f47;
+    color: white;
+
+    border: none;
+    border-radius: 3px;
+
+    margin: 3px;
+    padding: 5px 10px 5px 10px;
+}
+.button-class:hover {
+    cursor: pointer;
+}
+.button-class:disabled {
+    background-color: #d6a6a0
+}
