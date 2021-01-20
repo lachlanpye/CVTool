@@ -5,7 +5,7 @@ import Button from '../../Button/Button';
 
 const FileChooser = props => {
     const hiddenFileInput = React.useRef(null);
-    const [fileName, setFileName] = useState('');
+    const [fileName, setFileName] = useState('No file uploaded');
 
     const handleClick = event => {
         hiddenFileInput.current.click();

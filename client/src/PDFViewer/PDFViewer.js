@@ -43,7 +43,7 @@ export default function PDFViewer(props) {
 
   return (
     <div className="pdfObject">
-      <Document file={props.pdf} onLoadSuccess={onDocumentLoadSuccess} onLoadError={onDocumentLoadFailure}>
+      <Document file={props.pdf} onLoadSuccess={onDocumentLoadSuccess} onLoadError={onDocumentLoadFailure} noData="">
         <Page pageNumber={pageNumber} scale={0.5} />
       </Document>
       { pageNavigation } 
