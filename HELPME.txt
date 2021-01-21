@@ -12,13 +12,12 @@ npm run dev
 # Build
 npm run client:build
 
-#API endpoints:
-
+# API endpoints
 GET: "get-tags"
 POST: "add-tag" { tag: string }
 POST: "submit-cover-letter" { name: string, content: string, tags: array}
-POST: "submit-resume"
+POST: "submit-resume" { name: string, content: File, tags: array }
 GET: "get-cover-letter-list"
 GET: "get-resume-list"
-POST: "get-cover-letter"
-POST: "get-resume"
+POST: "get-cover-letter" { name: string }
+POST: "get-resume" { name: string }

@@ -1,0 +1,16 @@
+<resumes>
+ <resume>
+  <name>Lachlan Pye</name>
+  <tags>
+   <tag>React</tag>
+   <tag>NodeJS</tag>
+  </tags>
+ </resume>
+ <resume>
+  <name>Lachlan Pye 2</name>
+  <tags>
+   <tag>React</tag>
+   <tag>NodeJS</tag>
+  </tags>
+ </resume>
+</resumes>
