@@ -23,7 +23,6 @@ class NewResumePage extends Component {
         this.onResumeUploadSuccess = this.onResumeUploadSuccess.bind(this)
         this.onResumeUploadFailure = this.onResumeUploadFailure.bind(this);
 
-        this.onResumeFileNameChange = this.onResumeFileNameChange.bind(this);
         this.onResumeFileChange = this.onResumeFileChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
@@ -47,11 +46,6 @@ class NewResumePage extends Component {
     onResumeUploadFailure() {
         this.setState({
             showSubmitOption: false
-        });
-    }
-    onResumeFileChange(event) {
-        this.setState({
-            resumeFile: event.target.files[0]
         });
     }
 

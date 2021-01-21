@@ -6,19 +6,33 @@ import HomePage from './HomePage/HomePage';
 import FindPage from './FindPage/FindPage';
 import NewResumePage from './NewResumePage/NewResumePage';
 import NewCoverLetterPage from './NewCoverLetterPage/NewCoverLetterPage';
+import ViewPage from './ViewPage/ViewPage';
 
 class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { current: "home" };
-    this.handleClick = this.handleClick.bind(this);
+    this.state = { 
+      current: "home",
+      page: ""
+     };
+
+    this.handlePageChange = this.handlePageChange.bind(this);
+    this.handleViewFile = this.handleViewFile.bind(this);
   }
 
-  handleClick(message) {
+  handlePageChange(message) {
     this.setState({
-      current: message
+      current: message,
+      page: ""
     });
+  }
+
+  handleViewFile(file) {
+    this.setState({
+      current: "view-page",
+      page: file
+    })
   }
 
   render() {
@@ -36,13 +50,16 @@ class App extends Component {
       case "new-cover-letter":
         page = <NewCoverLetterPage />;
         break;
+      case "view-page":
+        page = <ViewPage page={this.state.page}/>;
+        break;
       default:
         break;
     }
 
     return (
       <div id="page-background">
-        <Sidebar changePage={ this.handleClick }/>
+        <Sidebar changePage={ this.handlePageChange }/>
         { page }
       </div>
     );
