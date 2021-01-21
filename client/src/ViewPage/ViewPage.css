@@ -1,0 +1,9 @@
+div {
+    animation-name: "view-page";
+    animation-duration: 1s;
+}
+
+@keyframes view-page {
+    from {opacity: 0}
+    to {opacity: 1}
+}
