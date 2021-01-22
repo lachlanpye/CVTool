@@ -5,6 +5,7 @@ import axios from 'axios';
 
 import PDFViewer from './../PDFViewer/PDFViewer';
 import FileChooser from './FileChooser/FileChooser';
+import TagSearchBar from './../TagSearchBar/TagSearchBar';
 import TextInput from './../TextInput/TextInput';
 import Button from '../Button/Button';
 
@@ -15,6 +16,7 @@ class NewResumePage extends Component {
         this.state = {
             resumeFileName: "",
             resumeFile: "",
+            tags: [],
 
             showSubmitOption: false
         };
@@ -24,6 +26,7 @@ class NewResumePage extends Component {
         this.onResumeUploadFailure = this.onResumeUploadFailure.bind(this);
 
         this.onResumeFileChange = this.onResumeFileChange.bind(this);
+        this.onTagChange = this.onTagChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
@@ -35,6 +38,11 @@ class NewResumePage extends Component {
     onResumeFileChange(file) {
         this.setState({
             resumeFile: file,
+        });
+    }
+    onTagChange(newTags) {
+        this.setState({
+            tags: newTags
         });
     }
 
@@ -61,6 +69,9 @@ class NewResumePage extends Component {
         var submit = <div/>;
         if (this.state.showSubmitOption) {
             submit =    <div className="inputDiv">
+                            <label>Add tags: </label>
+                            <TagSearchBar onTagChange={this.onTagChange} />
+                            <br/>
                             <Button value="Submit" onClick={this.onSubmit}/>
                         </div>;
         }

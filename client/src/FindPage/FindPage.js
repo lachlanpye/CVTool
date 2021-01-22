@@ -3,6 +3,7 @@ import './FindPage.css';
 
 import TagSearchBar from './../TagSearchBar/TagSearchBar';
 import FindTableRow from './FindTableRow/FindTableRow';
+import axios from 'axios';
 
 class FindPage extends Component {
     constructor(props) {
@@ -10,12 +11,18 @@ class FindPage extends Component {
         this.state = {
             'selectValue': 'tag',
             'searchType': 'inc',
-            'filter': []
+            'filter': [],
+
+            'fileList': []
         }
 
         this.onSelectChange = this.onSelectChange.bind(this);
         this.onSearchTypeChange = this.onSearchTypeChange.bind(this);
         this.onTagChange = this.onTagChange.bind(this);
+    }
+
+    componentDidMount() {
+        this.getFiles();
     }
 
     onSelectChange(event) {
@@ -36,21 +43,22 @@ class FindPage extends Component {
 
     getFiles() {
         // TODO: Add axios GET request in here
-        return [
-            {
-                "name": "Lachlan Pye",
-                "tags": ["React", "NodeJS"]
-            }, 
-            {
-                "name": "Lachlan Pye 2",
-                "tags": ["React"]
-            },
-            {
-                "name": "Lachlan Pye 3",
-                "tags": ["HTML", "CSS"]
-            }
-        ]  
+        axios({
+            method: "get",
+            url: "/api/v1/get-cover-letter-list"
+        }).then((res) => {
+            var fileNames = res.data.map(file => {
+                return { "name": file.name, "tags": file.tags}
+            });
+
+            this.setState({
+                fileList: fileNames
+            })
+        }).catch((err) => {
+            console.log(err);
+        });
     }
+
 
     inclusiveFilter(element) {
         var flag = false;
@@ -92,28 +100,41 @@ class FindPage extends Component {
                 break;
         }
 
-        var tableRows = this.getFiles().map((element) => {
-            var flag = null;
-            if (this.state.searchType === "inc") {
-                if (this.state.filter.length > 0) {
-                    flag = this.inclusiveFilter(element);
+        var tableRows;
+        if (this.state.fileList.length > 0) { 
+            tableRows = this.state.fileList.map((element) => {
+                var flag = null;
+                if (this.state.searchType === "inc") {
+                    if (this.state.filter.length > 0) {
+                        flag = this.inclusiveFilter(element);
+                    } else {
+                        flag = true;
+                    }
                 } else {
-                    flag = true;
+                    if (this.state.filter.length > 0) {
+                        flag = this.exclusiveFilter(element);
+                    } else {
+                        flag = true;
+                    }
                 }
-            } else {
-                if (this.state.filter.length > 0) {
-                    flag = this.exclusiveFilter(element);
-                } else {
-                    flag = true;
-                }
-            }
 
-            if (flag === true) {
-                return <FindTableRow viewPage={(page) => this.props.handlePageChange(page)} filename={element.name} taglist={element.tags.toString(", ")} />;
-            } else {
-                return <></>;
-            }
-        });
+                if (flag === true) {
+                    const length = element.tags.length;
+                    let tagList = element.tags.map((tag, i) => { 
+                        let sep = "";
+                        if (length !== i + 1) { sep = ", "}
+                        if (this.state.filter.includes(tag)) {
+                            return <b>{tag}{sep}</b>
+                        } else {
+                            return <>{tag}{sep}</>
+                        }
+                    });
+                    return <FindTableRow viewPage={(page) => this.props.handlePageChange(page)} filename={element.name} taglist={tagList} />;
+                } else {
+                    return <></>;
+                }
+            });
+        }
 
         return (
             <div>

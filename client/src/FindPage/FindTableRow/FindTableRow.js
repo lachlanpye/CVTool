@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './FindTableRow.css';
 
+import Button from './../../Button/Button';
+
 class FindTableRow extends Component {
     render() {
         return (
@@ -8,9 +10,9 @@ class FindTableRow extends Component {
                 <td>{this.props.filename}</td>
                 <td>{this.props.taglist}</td>
                 <td>
-                    <button onClick={() => this.props.viewPage(this.props.filename)}>View</button>
-                    <button>Download</button>
-                    <button>Delete</button>
+                    <Button value="View" onClick={() => this.props.viewPage(this.props.filename)} />
+                    <Button value="Download" />
+                    <Button value="Delete" />
                 </td>
             </tr>
         );

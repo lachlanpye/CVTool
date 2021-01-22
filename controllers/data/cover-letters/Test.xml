@@ -1,0 +1,10 @@
+<cover-letter>
+ <name>Test</name>
+ <content>Hoop-rah!</content>
+ <tags>
+  <tag>React</tag>
+  <tag>NodeJS</tag>
+  <tag>HTML</tag>
+  <tag>CSS</tag>
+ </tags>
+</cover-letter>

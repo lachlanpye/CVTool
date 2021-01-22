@@ -70,7 +70,9 @@ class TagSearchBar extends Component {
         let index = newTagList.indexOf(tag);
         if (index !== -1) {
             newTagList.splice(index, 1);
-            this.setState({currentTagList: newTagList});
+            this.setState({currentTagList: newTagList}, () => {
+                this.props.onTagChange(this.state.currentTagList);
+            });
         }
     }
 

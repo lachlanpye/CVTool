@@ -29,3 +29,10 @@ table, th, td {
 
     text-align: left;
 }
+
+th {
+    background-color: rgb(238, 228, 228);
+}
+td {
+    background-color: white;
+}
