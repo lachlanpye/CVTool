@@ -7,3 +7,35 @@ div {
     from {opacity: 0}
     to {opacity: 1}
 }
+
+#file-content-view, #file-tags {
+    background-color: white;
+    padding: 10px;
+
+    width: 80%;
+    max-width: 550px;
+
+    border: 2px solid black;
+    border-radius: 5px;
+}
+#file-content-edit {
+    background-color: white;
+    padding: 10px;
+
+    width: 80%;
+    max-width: 550px;
+    resize: vertical;
+
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+#view-page-options {
+    background-color: white;
+    padding: 5px;
+
+    width: fit-content;
+
+    border: 2px solid black;
+    border-radius: 5px;
+}

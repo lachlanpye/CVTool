@@ -47,6 +47,8 @@ class NewCoverLetterPage extends Component {
                 content: this.state.cvTextValue,
                 tags: this.state.tags
             }
+        }).then(res => {
+            this.props.returnHome();
         });
     }
 

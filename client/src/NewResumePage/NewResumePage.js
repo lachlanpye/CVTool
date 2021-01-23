@@ -61,8 +61,16 @@ class NewResumePage extends Component {
         const data = new FormData();
         data.append('name', this.state.resumeFileName);
         data.append('content', this.state.resumeFile);
-        data.append('tags', JSON.stringify(['React', 'NodeJS', 'Express']));
-        axios.post('/api/v1/submit-resume', data).catch( err => { console.log(err.response.data) });
+        data.append('tags', JSON.stringify(this.state.tags));
+        axios({
+            method: "post",
+            url: '/api/v1/submit-resume',
+            data: data
+        }).then(res => {
+            this.props.returnHome();
+        }).catch(err => {
+            console.log(err.response.data) 
+        });
     }
 
     render() {

@@ -42,7 +42,6 @@ class FindPage extends Component {
     }
 
     getFiles() {
-        // TODO: Add axios GET request in here
         axios({
             method: "get",
             url: "/api/v1/get-cover-letter-list"
@@ -58,7 +57,6 @@ class FindPage extends Component {
             console.log(err);
         });
     }
-
 
     inclusiveFilter(element) {
         var flag = false;
@@ -129,7 +127,7 @@ class FindPage extends Component {
                             return <>{tag}{sep}</>
                         }
                     });
-                    return <FindTableRow viewPage={(page) => this.props.handlePageChange(page)} filename={element.name} taglist={tagList} />;
+                    return <FindTableRow viewPage={(page) => this.props.handleViewFile(page)} filename={element.name} taglist={tagList} />;
                 } else {
                     return <></>;
                 }

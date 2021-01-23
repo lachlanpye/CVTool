@@ -17,6 +17,7 @@ const submitResume = (req, res, next) => {
                         });
 
                         let xml = convert.js2xml(js, {compact: true, indentAttributes: true, spaces: 1});
+                        console.log(xml);
                         fs.writeFile(path.join(__dirname, './data/resumes-meta.xml'), xml, function(err, data) { 
                             if (!err) {
                                 res.status(200).json({ data: "OK" });

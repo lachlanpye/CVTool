@@ -42,13 +42,13 @@ class App extends Component {
         page = <HomePage />
         break;
       case "find":
-        page = <FindPage />;
+        page = <FindPage handleViewFile={this.handleViewFile} />;
         break;
       case "new-resume":
-        page = <NewResumePage />;
+        page = <NewResumePage returnHome={() => {this.handlePageChange("home")}} />;
         break;
       case "new-cover-letter":
-        page = <NewCoverLetterPage />;
+        page = <NewCoverLetterPage returnHome={() => {this.handlePageChange("home")}} />;
         break;
       case "view-page":
         page = <ViewPage page={this.state.page}/>;

@@ -1,5 +1,5 @@
 #tag-search-bar {
-    display: inline-block;
+    display: flex;
 }
 
 #tag-search {
