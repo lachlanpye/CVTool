@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Document, Page } from 'react-pdf/dist/umd/entry.webpack';
 
+import './PDFViewer.css';
 import Button from '../Button/Button';
 
 export default function PDFViewer(props) {
@@ -34,7 +35,7 @@ export default function PDFViewer(props) {
 
   var pageNavigation = <div/>
   if (showNavigation) {
-    pageNavigation =    <div>
+    pageNavigation =    <div id="pdf-pages">
                             <p>Page {pageNumber || (numPages ? 1 : '--')} of {numPages || '--'}</p>
                             <Button value="Previous" disabled={pageNumber <= 1} onClick={previousPage} />
                             <Button value="Next" disabled={pageNumber >= numPages} onClick={nextPage} />

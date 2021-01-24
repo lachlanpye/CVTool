@@ -15,9 +15,18 @@ div {
 }
 
 .searchTable {
-    padding-top: 10px;
     float: left;
     clear: left;
+
+    height: 50%;
+    max-height: 300px;
+    overflow: auto;
+
+    border: 1.5px solid black;
+    border-radius: 5px;
+    background-color: white;
+    padding: 20px;
+    margin-top: 20px;
 }
 
 table {

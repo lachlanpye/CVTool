@@ -42,19 +42,34 @@ class FindPage extends Component {
     }
 
     getFiles() {
-        axios({
-            method: "get",
-            url: "/api/v1/get-cover-letter-list"
-        }).then((res) => {
-            var fileNames = res.data.map(file => {
-                return { "name": file.name, "tags": file.tags}
+        var promises = [];
+        promises.push(new Promise((resolve, reject) => {
+            axios({
+                method: "get",
+                url: "/api/v1/get-cover-letter-list"
+            }).then((res) => {
+                var fileNames = res.data.map(file => {
+                    return { "name": file.name, "tags": file.tags, "type": "cover-letter" }
+                });
+                resolve({ fileList: fileNames });
             });
+        }));
+        promises.push(new Promise((resolve, reject) => {
+            axios({
+                method: "get",
+                url: "/api/v1/get-resume-list"
+            }).then((res) => {
+                var fileNames = res.data.map(file => {
+                    return { "name": file.name, "tags": file.tags, "type": "resume" }
+                });
+                resolve({ fileList: fileNames });
+            });
+        }));
 
+        Promise.all(promises).then(values => {
             this.setState({
-                fileList: fileNames
-            })
-        }).catch((err) => {
-            console.log(err);
+                fileList: values[0].fileList.concat(values[1].fileList)
+            });
         });
     }
 
@@ -82,6 +97,43 @@ class FindPage extends Component {
         }
         else {
             return false;
+        }
+    }
+
+    onDownload() {
+        axios({
+            method: "post",
+            url: "/api/v1/download-resume",
+            data: { filename: this.props.page },
+            responseType: 'blob'
+        }).then(res => {
+            const url = window.URL.createObjectURL(new Blob([res.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', this.state.fileName + '.pdf');
+            document.body.appendChild(link);
+            link.click();
+        });
+    }
+
+    onDelete(filename, type) {
+        if (type === "cover-letter") {
+            axios({
+                method: "post",
+                url: "/api/v1/delete-cover-letter",
+                data: { name: filename }
+            }).then(res => {
+                this.getFiles();
+            });
+        }
+        if (type === "resume") {
+            axios({
+                method: "post",
+                url: "/api/v1/delete-resume",
+                data: { name: filename }
+            }).then(res => {
+                this.getFiles();
+            });
         }
     }
 
@@ -127,7 +179,13 @@ class FindPage extends Component {
                             return <>{tag}{sep}</>
                         }
                     });
-                    return <FindTableRow viewPage={(page) => this.props.handleViewFile(page)} filename={element.name} taglist={tagList} />;
+                    return <FindTableRow 
+                                viewPage={(page, type) => this.props.handleViewFile(page, type)} 
+                                deleteFile={(file, type) => this.onDelete(file, type)}
+                                filename={element.name} 
+                                filetype={element.type} 
+                                taglist={tagList} 
+                            />;
                 } else {
                     return <></>;
                 }
@@ -139,11 +197,7 @@ class FindPage extends Component {
                 <h1>Find page</h1>
 
                 <div className="inputDiv">
-                    <label>Search by: </label>
-                    <select id="search-select" onChange={(e) => this.onSelectChange(e)}>
-                        <option value="tag">Tag</option>
-                        <option value="name">Name</option>
-                    </select>
+                    <label>Filter by tag: </label>
                     { searchBar }
                     <div onChange={this.onSearchTypeChange}>
                         <input type="radio" value="inc" name="searchType" defaultChecked/><label>Must have at least one tag</label><br/>
@@ -155,11 +209,13 @@ class FindPage extends Component {
                     <table>
                         <tr>
                             <th>File name</th>
+                            <th>File type</th>
                             <th>Matching tags</th>
                             <th>Options</th>
                         </tr>
                         { tableRows }
                     </table>
+                    <br/>
                 </div>
             </div>
         );

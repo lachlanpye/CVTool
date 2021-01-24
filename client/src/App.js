@@ -28,11 +28,12 @@ class App extends Component {
     });
   }
 
-  handleViewFile(file) {
+  handleViewFile(filename, filetype) {
     this.setState({
       current: "view-page",
-      page: file
-    })
+      page: filename,
+      type: filetype
+    });
   }
 
   render() {
@@ -51,7 +52,7 @@ class App extends Component {
         page = <NewCoverLetterPage returnHome={() => {this.handlePageChange("home")}} />;
         break;
       case "view-page":
-        page = <ViewPage page={this.state.page}/>;
+        page = <ViewPage page={this.state.page} type={this.state.type} returnHome={() => {this.handlePageChange("home")}} />;
         break;
       default:
         break;

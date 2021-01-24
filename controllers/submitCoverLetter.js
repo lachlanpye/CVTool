@@ -4,7 +4,6 @@ var fs = require('fs');
 
 const submitCoverLetter = (req, res, next) => {
     var json = req.body;
-    console.log(json);
     json = { "cover-letter": json };
     json["cover-letter"].tags = {
         "tag": json["cover-letter"].tags
