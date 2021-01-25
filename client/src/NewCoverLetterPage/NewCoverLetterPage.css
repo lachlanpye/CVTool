@@ -33,3 +33,7 @@ div {
 #cv-text:focus {
     background-color: #dfdfdf;
 }
+
+#warning-text {
+    color: darkred;
+}

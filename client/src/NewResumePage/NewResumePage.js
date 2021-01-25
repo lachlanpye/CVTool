@@ -17,6 +17,7 @@ class NewResumePage extends Component {
             resumeFileName: "",
             resumeFile: "",
             tags: [],
+            warnText: "",
 
             showSubmitOption: false
         };
@@ -58,28 +59,45 @@ class NewResumePage extends Component {
     }
 
     onSubmit() {
-        const data = new FormData();
-        data.append('name', this.state.resumeFileName);
-        data.append('content', this.state.resumeFile);
-        data.append('tags', JSON.stringify(this.state.tags));
-        axios({
-            method: "post",
-            url: '/api/v1/submit-resume',
-            data: data
-        }).then(res => {
-            this.props.returnHome();
-        }).catch(err => {
-            console.log(err.response.data) 
-        });
+        if (this.state.resumeFileName.length === 0) {
+            this.setState({
+                warnText: "Enter a name for this resume."
+            });
+        } else {
+            if (this.state.tags.length === 0) {
+                this.setState({
+                    warnText: "Enter at least one tag for this resume."
+                });
+            } else {
+                const data = new FormData();
+                data.append('name', this.state.resumeFileName);
+                data.append('content', this.state.resumeFile);
+                data.append('tags', JSON.stringify(this.state.tags));
+                axios({
+                    method: "post",
+                    url: '/api/v1/submit-resume',
+                    data: data
+                }).then(res => {
+                    this.props.returnHome();
+                }).catch(err => {
+                    console.log(err.response.data) 
+                });
+            }
+        }
     }
 
     render() {
-        var submit = <div/>;
+        var submit = <></>;
+        var warnText = <></>;
+        if (this.state.warnText.length !== 0) { 
+            warnText = <p id="warning-text">{this.state.warnText}</p>
+        }
         if (this.state.showSubmitOption) {
             submit =    <div className="inputDiv">
                             <label>Add tags: </label>
                             <TagSearchBar onTagChange={this.onTagChange} />
                             <br/>
+                            { warnText }
                             <Button value="Submit" onClick={this.onSubmit}/>
                         </div>;
         }
@@ -89,14 +107,13 @@ class NewResumePage extends Component {
                 <h1>New resume page</h1>
 
                 <div className="inputDiv">
-                <label>Save resume as: </label>
-                <TextInput id="resume-file-name" value={this.state.resumeFileName} onChange={this.onResumeFileNameChange}/>
+                <TextInput placeholder="Save resume as" id="resume-file-name" value={this.state.resumeFileName} onChange={this.onResumeFileNameChange}/>
                 </div>
 
                 <div className="inputDiv">
                 <label>Select resume: </label><br/>
                 <FileChooser handleFile={this.onResumeFileChange}/><br/>
-                <PDFViewer pdf={this.state.resumeFile} onSuccess={this.onResumeUploadSuccess} onFailure={this.onResumeUploadFailure}/>
+                <PDFViewer id="pdf-view" pdf={this.state.resumeFile} onSuccess={this.onResumeUploadSuccess} onFailure={this.onResumeUploadFailure}/><br/>
                 </div>
                 
                 { submit }

@@ -13,7 +13,9 @@ class NewCoverLetterPage extends Component {
         this.state = {
             "cvNameValue": "",
             "cvTextValue": "",
-            "tags": []
+            "tags": [],
+
+            "warnText": ""
         }
 
         this.onSubmit = this.onSubmit.bind(this);
@@ -39,20 +41,42 @@ class NewCoverLetterPage extends Component {
     }
 
     onSubmit(event) {
-        axios({
-            method: "post",
-            url: "/api/v1/submit-cover-letter",
-            data: {
-                name: this.state.cvNameValue,
-                content: this.state.cvTextValue,
-                tags: this.state.tags
+        if (this.state.cvNameValue.length === 0) {
+            this.setState({
+                warnText: "Enter a name for this cover letter."
+            });
+        } else {
+            if (this.state.cvTextValue.length === 0) {
+                this.setState({
+                    warnText: "Enter some text for this cover letter."
+                });
+            } else {
+                if (this.state.tags.length === 0) {
+                    this.setState({
+                        warnText: "Enter at least one tag for this cover letter."
+                    });
+                } else {
+                    axios({
+                        method: "post",
+                        url: "/api/v1/submit-cover-letter",
+                        data: {
+                            name: this.state.cvNameValue,
+                            content: this.state.cvTextValue,
+                            tags: this.state.tags
+                        }
+                    }).then(res => {
+                        this.props.returnHome();
+                    });
+                }
             }
-        }).then(res => {
-            this.props.returnHome();
-        });
+        }
     }
 
     render() {
+        var warnText = <></>;
+        if (this.state.warnText.length !== 0) {
+            warnText = <p id="warning-text">{this.state.warnText}</p>;
+        }
         return (
             <div>
                 <h1>New cover letter page</h1>
@@ -73,6 +97,7 @@ class NewCoverLetterPage extends Component {
                 </div>
 
                 <div className="inputDiv">
+                { warnText } 
                 <Button id="submit-button" value="Submit" onClick={this.onSubmit}/>
                 </div>
             </div>
