@@ -81,7 +81,7 @@ class TagSearchBar extends Component {
         if (this.state.fullTagList.data !== undefined) {
             html =  <div>
                         <div id="tag-search-bar">
-                            <TextInput id="tag-search" list="tag-datalist" placeholder="Search..." value={this.state.tagInputValue} onChange={this.onTagInputChange}/>
+                            <TextInput id="tag-search" list="tag-datalist" placeholder="Add tags..." value={this.state.tagInputValue} onChange={this.onTagInputChange}/>
                                 <datalist id="tag-datalist">
                                     {this.state.fullTagList.data.map((item, key) => {
                                         return <option key={key} value={item}/>

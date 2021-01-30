@@ -1,27 +1,31 @@
-.text-input-class {
-    background-color: rgba(0, 0, 0, 0.007);
+.text-input-expand input {
+    background: #eeeeee;
+    padding: 10px;
+    border: none;
+
+    font-size: 15px;
+}
+.text-input-expand input:focus {
     outline: none;
-
-    width: 75%;
-    max-width: 300px;
-    height: 25px;
-
-    border: 0;
-    border-bottom: 2px solid black;
-
-    padding: 5px;
-    padding-left: 10px;
-
-    font-size: 16px;
-
-    transition-property: border-bottom;
-    transition-duration: 1s;
-    transition-timing-function: linear;
-
 }
 
-.text-input-class:focus {
-    outline: none;
-    background-color:  rgba(0, 0, 0, 0.589);
-    border-bottom: 2px solid lightblue;
+.text-input-expand {
+    display: inline-block;
+    position: relative;
+}
+
+.text-input-border {
+    display: block;
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    top: 100%;
+    background: #991111;
+    transform: scaleX(0);
+    transition: transform 0.3s;
+    transform-origin:  0% 50%;
+}
+
+.text-input-expand input:focus + .text-input-border, .text-input-expand:focus .text-input-border {
+    transform: scaleX(1);
 }

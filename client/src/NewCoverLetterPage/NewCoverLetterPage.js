@@ -82,17 +82,14 @@ class NewCoverLetterPage extends Component {
                 <h1>New cover letter page</h1>
 
                 <div className="inputDiv">
-                <label>Name of cover letter: </label>
-                <TextInput id="cv-name" value={this.state.cvNameValue} onChange={this.onNameChange}/>
+                <TextInput id="cv-name" placeholder="Cover letter name" value={this.state.cvNameValue} onChange={this.onNameChange}/>
                 </div>
 
                 <div className="inputDiv">
-                <label>Cover letter content: </label>
-                <textarea id="cv-text" rows="20" columns="30" value={this.state.cvTextValue} onChange={this.onTextChange}/>
+                <textarea id="cv-text" placeholder="Cover letter content" rows="20" columns="30" value={this.state.cvTextValue} onChange={this.onTextChange}/>
                 </div>
 
                 <div className="inputDiv">
-                <label>Add tags: </label>
                 <TagSearchBar onTagChange={this.onTagChange}/>
                 </div>
 

@@ -94,7 +94,6 @@ class NewResumePage extends Component {
         }
         if (this.state.showSubmitOption) {
             submit =    <div className="inputDiv">
-                            <label>Add tags: </label>
                             <TagSearchBar onTagChange={this.onTagChange} />
                             <br/>
                             { warnText }
