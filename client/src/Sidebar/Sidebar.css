@@ -37,6 +37,10 @@
     box-shadow: none;
 }
 
+.sidenav hr {
+    width: 85%;
+}
+
 @media screen and (max-width: 450px) {
     .sidenav {padding-top: 15px; width: 90px}
     .sidenav button {font-size: 18px;}

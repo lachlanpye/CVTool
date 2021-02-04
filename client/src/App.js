@@ -7,6 +7,8 @@ import FindPage from './FindPage/FindPage';
 import NewResumePage from './NewResumePage/NewResumePage';
 import NewCoverLetterPage from './NewCoverLetterPage/NewCoverLetterPage';
 import ViewPage from './ViewPage/ViewPage';
+import LoginPage from './LoginPage/LoginPage';
+import CreateAccount from './CreateAccount/CreateAccount';
 
 class App extends Component {
   constructor(props) {
@@ -39,6 +41,12 @@ class App extends Component {
   render() {
     let page = <div/>
     switch (this.state.current) {
+      case "login":
+        page = <LoginPage handlePageChange={this.handlePageChange} />
+        break;
+      case "create-account":
+        page = <CreateAccount handlePageChange={this.handlePageChange}/>
+        break;
       case "home":
         page = <HomePage />
         break;

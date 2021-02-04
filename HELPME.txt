@@ -21,3 +21,12 @@ GET: "get-cover-letter-list"
 GET: "get-resume-list"
 POST: "get-cover-letter" { name: string }
 POST: "get-resume" { name: string }
+POST: "get-resume-file-data" { name: string }
+POST: "download-resume" { name: string }
+POST: "delete-resume" { name: string }
+POST: "delete-cover-letter" { name: string }
+
+# Start MySQL server
+Run cmd as admin
+cd C:\Program Files\MySQL\MySQL Server 8.0\bin
+mysqld --console

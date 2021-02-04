@@ -28,3 +28,13 @@ body {
   opacity: 0.01;
   transition: opacity 300ms ease-in;
 }
+
+.inputDiv {
+  padding-top: 10px;
+  float: left;
+  clear: left;
+}
+
+.warning-text {
+  color: darkred;
+}
