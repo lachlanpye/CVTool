@@ -49,7 +49,7 @@ class FindPage extends Component {
                 url: "/api/v1/get-cover-letter-list"
             }).then((res) => {
                 var fileNames = res.data.map(file => {
-                    return { "name": file.name, "tags": file.tags, "type": "cover-letter" }
+                    return { "name": file.name, "tags": file.tags, "type": "cover-letter", "email": this.props.email }
                 });
                 resolve({ fileList: fileNames });
             });
@@ -121,7 +121,7 @@ class FindPage extends Component {
             axios({
                 method: "post",
                 url: "/api/v1/delete-cover-letter",
-                data: { name: filename }
+                data: { name: filename, email: this.props.email },
             }).then(res => {
                 this.getFiles();
             });
@@ -130,7 +130,7 @@ class FindPage extends Component {
             axios({
                 method: "post",
                 url: "/api/v1/delete-resume",
-                data: { name: filename }
+                data: { name: filename, email: this.props.email }
             }).then(res => {
                 this.getFiles();
             });

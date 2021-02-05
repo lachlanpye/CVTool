@@ -13,7 +13,6 @@ const addAccount = (req, res, next) => {
         if (err) throw err;
         conn.query("INSERT INTO Accounts (Email, Password) VALUES (?, ?)", [req.body.email, req.body.password], function(err, result) {
             if (err) throw err;
-            console.log(result);
         })
       });
 

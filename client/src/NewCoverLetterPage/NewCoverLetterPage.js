@@ -62,7 +62,8 @@ class NewCoverLetterPage extends Component {
                         data: {
                             name: this.state.cvNameValue,
                             content: this.state.cvTextValue,
-                            tags: this.state.tags
+                            tags: this.state.tags,
+                            email: this.props.email
                         }
                     }).then(res => {
                         this.props.returnHome();

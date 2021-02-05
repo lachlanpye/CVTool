@@ -31,7 +31,8 @@ class LoginPage extends Component {
         });
     }
     onLogin() {
-        if (this.state.email === "") {
+        let emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        if (!emailRegex.test(this.state.email)) {
             this.setState({
                 warningText: "Please enter a valid email."
             });
@@ -53,7 +54,7 @@ class LoginPage extends Component {
                     }
                 }).then(res => {
                     if (res.data.foundAccount) {
-                        this.props.changeLoggedStatus();
+                        this.props.changeLoggedStatus(this.state.email, this.state.password);
                         this.props.handlePageChange("home");
                     } else {
                         this.setState({

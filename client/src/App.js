@@ -8,6 +8,7 @@ import NewResumePage from './NewResumePage/NewResumePage';
 import NewCoverLetterPage from './NewCoverLetterPage/NewCoverLetterPage';
 import ViewPage from './ViewPage/ViewPage';
 import LoginPage from './LoginPage/LoginPage';
+import LogoutPage from './LogoutPage/LogoutPage';
 import CreateAccount from './CreateAccount/CreateAccount';
 
 class App extends Component {
@@ -17,12 +18,15 @@ class App extends Component {
     this.state = { 
       current: "home",
       page: "",
+
       loggedIn: false,
+      email: "",
+      password: "",
      };
 
     this.handlePageChange = this.handlePageChange.bind(this);
     this.handleViewFile = this.handleViewFile.bind(this);
-    this.changeLoggedStatus = this.changeLoggedStatus.bind(this);
+    this.loggedIn = this.loggedIn.bind(this);
   }
 
   handlePageChange(message) {
@@ -40,9 +44,11 @@ class App extends Component {
     });
   }
 
-  changeLoggedStatus() {
+  loggedIn(accEmail, accPass) {
     this.setState({
-      loggedIn: !this.state.loggedIn
+      loggedIn: (accEmail === null && accPass === null) ? false : true,
+      email: accEmail,
+      password: accPass,
     });
   }
 
@@ -50,22 +56,25 @@ class App extends Component {
     let page = <div/>
     switch (this.state.current) {
       case "login":
-        page = <LoginPage handlePageChange={this.handlePageChange} changeLoggedStatus={this.changeLoggedStatus}/>
+        page = <LoginPage handlePageChange={this.handlePageChange} changeLoggedStatus={(email, password) => {this.loggedIn(email, password)}} />
+        break;
+      case "logout":
+        page = <LogoutPage returnHome={() => {this.handlePageChange("home")}} changeLoggedStatus={(email, password) => {this.loggedIn(email, password)}} />
         break;
       case "create-account":
-        page = <CreateAccount handlePageChange={this.handlePageChange}/>
+        page = <CreateAccount handlePageChange={this.handlePageChange} />
         break;
       case "home":
-        page = <HomePage />
+        page = <HomePage loggedIn={this.state.loggedIn} />
         break;
       case "find":
-        page = <FindPage handleViewFile={this.handleViewFile} />;
+        page = <FindPage handleViewFile={this.handleViewFile} email={this.state.email} />;
         break;
       case "new-resume":
-        page = <NewResumePage returnHome={() => {this.handlePageChange("home")}} />;
+        page = <NewResumePage returnHome={() => {this.handlePageChange("home")}} email={this.state.email} />;
         break;
       case "new-cover-letter":
-        page = <NewCoverLetterPage returnHome={() => {this.handlePageChange("home")}} />;
+        page = <NewCoverLetterPage returnHome={() => {this.handlePageChange("home")}} email={this.state.email} />;
         break;
       case "view-page":
         page = <ViewPage page={this.state.page} type={this.state.type} returnHome={() => {this.handlePageChange("home")}} />;

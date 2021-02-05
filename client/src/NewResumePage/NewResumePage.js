@@ -73,6 +73,7 @@ class NewResumePage extends Component {
                 data.append('name', this.state.resumeFileName);
                 data.append('content', this.state.resumeFile);
                 data.append('tags', JSON.stringify(this.state.tags));
+                data.append('email', this.props.email);
                 axios({
                     method: "post",
                     url: '/api/v1/submit-resume',

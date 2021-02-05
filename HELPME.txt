@@ -29,3 +29,6 @@ POST: "delete-cover-letter" { name: string }
 # Start MySQL server
 Run as admin
 cd C:\Program Files\MySQL\MySQL Server 8.0\bin && mysqld --console
+
+# Get to MySQL command line
+cd C:\Program Files\MySQL\MySQL Server 8.0\bin && mysql CVToolDB --user=root --password
