@@ -20,10 +20,10 @@ const submitResume = (req, res, next) => {
             var userDirPath = path.join(__dirname, './data/uuid_' + value.ID);
             if (!fs.existsSync(userDirPath)) fs.mkdirSync(userDirPath)
             if (!fs.existsSync(path.join(userDirPath, './resumes'))) fs.mkdirSync(path.join(userDirPath, './resumes'))
+            if (!fs.existsSync(path.join(userDirPath, './resumes-meta.xml'))) fs.openSync(path.join(userDirPath, './resumes-meta.xml'), 'w')
 
             fs.writeFile(path.join(userDirPath, './resumes/' + req.body.name + '.pdf'), req.files.content.data, function (err, data) {
                 if (!err) {
-                    if (!fs.existsSync(path.join(userDirPath, './resumes-meta.xml'))) fs.openSync(path.join(userDirPath, './resumes-meta.xml'), 'w')
                     fs.readFile(path.join(userDirPath, './resumes-meta.xml'), function(err, data) {
                         if (!err) {
                             let js = convert.xml2js(data, { compact: true });

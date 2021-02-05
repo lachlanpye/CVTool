@@ -15,8 +15,8 @@ router.post('/submit-resume', submitResume.submitResume);
 
 const getCoverLetterList = require('./../controllers/getCoverLetterList');
 const getResumeList = require('./../controllers/getResumeList');
-router.get('/get-cover-letter-list', getCoverLetterList.getCoverLetterList);
-router.get('/get-resume-list', getResumeList.getResumeList);
+router.post('/get-cover-letter-list', getCoverLetterList.getCoverLetterList);
+router.post('/get-resume-list', getResumeList.getResumeList);
 
 const getCoverLetter = require('./../controllers/getCoverLetter');
 const getResume = require('./../controllers/getResume');

@@ -65,8 +65,8 @@ class CreateAccount extends Component {
                         }
                     }).then(res => {
                         this.props.handlePageChange("home");
-                        }
-                    );
+                        this.props.changeLoggedStatus(this.state.email, this.state.password);
+                    });
                 }
             }
         }

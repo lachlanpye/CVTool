@@ -45,8 +45,9 @@ class FindPage extends Component {
         var promises = [];
         promises.push(new Promise((resolve, reject) => {
             axios({
-                method: "get",
-                url: "/api/v1/get-cover-letter-list"
+                method: "post",
+                url: "/api/v1/get-cover-letter-list",
+                data: { email: this.props.email }
             }).then((res) => {
                 var fileNames = res.data.map(file => {
                     return { "name": file.name, "tags": file.tags, "type": "cover-letter", "email": this.props.email }
@@ -56,8 +57,9 @@ class FindPage extends Component {
         }));
         promises.push(new Promise((resolve, reject) => {
             axios({
-                method: "get",
-                url: "/api/v1/get-resume-list"
+                method: "post",
+                url: "/api/v1/get-resume-list",
+                data: { email: this.props.email }
             }).then((res) => {
                 var fileNames = res.data.map(file => {
                     return { "name": file.name, "tags": file.tags, "type": "resume" }

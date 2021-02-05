@@ -62,7 +62,7 @@ class App extends Component {
         page = <LogoutPage returnHome={() => {this.handlePageChange("home")}} changeLoggedStatus={(email, password) => {this.loggedIn(email, password)}} />
         break;
       case "create-account":
-        page = <CreateAccount handlePageChange={this.handlePageChange} />
+        page = <CreateAccount handlePageChange={this.handlePageChange} changeLoggedStatus={(email, password) => {this.loggedIn(email, password)}} />
         break;
       case "home":
         page = <HomePage loggedIn={this.state.loggedIn} />
@@ -77,7 +77,7 @@ class App extends Component {
         page = <NewCoverLetterPage returnHome={() => {this.handlePageChange("home")}} email={this.state.email} />;
         break;
       case "view-page":
-        page = <ViewPage page={this.state.page} type={this.state.type} returnHome={() => {this.handlePageChange("home")}} />;
+        page = <ViewPage page={this.state.page} type={this.state.type} returnHome={() => {this.handlePageChange("home")}} email={this.state.email} />;
         break;
       default:
         break;

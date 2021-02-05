@@ -17,8 +17,8 @@ GET: "get-tags"
 POST: "add-tag" { tag: string }
 POST: "submit-cover-letter" { name: string, content: string, tags: array}
 POST: "submit-resume" { name: string, content: File, tags: array }
-GET: "get-cover-letter-list"
-GET: "get-resume-list"
+POST: "get-cover-letter-list" { email: string }
+POST: "get-resume-list" { email: string }
 POST: "get-cover-letter" { name: string }
 POST: "get-resume" { name: string }
 POST: "get-resume-file-data" { name: string }

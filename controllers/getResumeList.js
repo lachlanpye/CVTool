@@ -2,6 +2,8 @@ var path = require('path');
 var convert = require('xml-js');
 var fs = require('fs');
 
+var getAccountID = require('./getAccountID');
+
 function isEmpty(obj) {
     for (var key in obj) {
         if (obj.hasOwnProperty(key)) {
@@ -13,37 +15,45 @@ function isEmpty(obj) {
 }
 
 const getResumeList = (req, res, next) => {
-    fs.readFile(path.join(__dirname, './data/resumes-meta.xml'), function (err, data) {
-        if (!err) {
-            let js = convert.xml2js(data, { compact: true });
 
-            if (isEmpty(js.resumes)) {
-                js.resumes = {
-                    resume: []
-                };
-            }
-            if (!Array.isArray(js.resumes.resume)) {
-                js.resumes.resume = [js.resumes.resume];
-            }
+    getAccountID(req.body.email).then(value => {
+        var userDirPath = path.join(__dirname, './data/uuid_' + value.ID);
+        if (!fs.existsSync(userDirPath)) fs.mkdirSync(userDirPath)
+        if (!fs.existsSync(path.join(userDirPath, './resumes'))) fs.mkdirSync(path.join(userDirPath, './resumes'))
+        if (!fs.existsSync(path.join(userDirPath, './resumes-meta.xml'))) fs.openSync(path.join(userDirPath, './resumes-meta.xml'), 'w')
 
-            let nameArray = [];
-            js.resumes.resume.forEach(element => {
-                let tagArray = [];
-                if (!Array.isArray(element.tags.tag)) {
-                    element.tags.tag = [element.tags.tag];
+        fs.readFile(path.join(userDirPath, './resumes-meta.xml'), function (err, data) {
+            if (!err) {
+                let js = convert.xml2js(data, { compact: true });
+    
+                if (isEmpty(js.resumes)) {
+                    js.resumes = {
+                        resume: []
+                    };
                 }
-
-                element.tags.tag.forEach(element => {
-                    tagArray.push(element._text);
-                })
-
-                nameArray.push({
-                    name: element.name._text,
-                    tags: tagArray
+                if (!Array.isArray(js.resumes.resume)) {
+                    js.resumes.resume = [js.resumes.resume];
+                }
+    
+                let nameArray = [];
+                js.resumes.resume.forEach(element => {
+                    let tagArray = [];
+                    if (!Array.isArray(element.tags.tag)) {
+                        element.tags.tag = [element.tags.tag];
+                    }
+    
+                    element.tags.tag.forEach(element => {
+                        tagArray.push(element._text);
+                    })
+    
+                    nameArray.push({
+                        name: element.name._text,
+                        tags: tagArray
+                    });
                 });
-            });
-            res.status(200).json(nameArray);
-        }
+                res.status(200).json(nameArray);
+            }
+        });
     });
 }
 
