@@ -11,13 +11,19 @@ const confirmLogin = (req, res, next) => {
 
     conn.connect(function(err) {
         if (err) throw err;
-        conn.query("SELECT * FROM Accounts", function(err, result) {
+        conn.query("SELECT * FROM Accounts WHERE Email=? AND Password=?", [req.body.email, req.body.password], function(err, result) {
             if (err) throw err;
-            console.log(result);
+            let flag = false;
+            var data = null;
+            for (let i = 0; i < result.length; i++) {
+                data = Object.assign({}, result[i]);
+                flag = true;
+            }
+
+            var found = (flag) ? true : false;
+            res.status(200).json({ foundAccount: found });
         });
       });
-
-    res.status(200).json({ data: "OK" });
 }
 
 module.exports.confirmLogin = confirmLogin;

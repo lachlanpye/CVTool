@@ -16,11 +16,13 @@ class App extends Component {
 
     this.state = { 
       current: "home",
-      page: ""
+      page: "",
+      loggedIn: false,
      };
 
     this.handlePageChange = this.handlePageChange.bind(this);
     this.handleViewFile = this.handleViewFile.bind(this);
+    this.changeLoggedStatus = this.changeLoggedStatus.bind(this);
   }
 
   handlePageChange(message) {
@@ -38,11 +40,17 @@ class App extends Component {
     });
   }
 
+  changeLoggedStatus() {
+    this.setState({
+      loggedIn: !this.state.loggedIn
+    });
+  }
+
   render() {
     let page = <div/>
     switch (this.state.current) {
       case "login":
-        page = <LoginPage handlePageChange={this.handlePageChange} />
+        page = <LoginPage handlePageChange={this.handlePageChange} changeLoggedStatus={this.changeLoggedStatus}/>
         break;
       case "create-account":
         page = <CreateAccount handlePageChange={this.handlePageChange}/>
@@ -68,7 +76,7 @@ class App extends Component {
 
     return (
       <div id="page-background">
-        <Sidebar changePage={ this.handlePageChange }/>
+        <Sidebar changePage={this.handlePageChange} loggedIn={this.state.loggedIn} />
         { page }
       </div>
     );

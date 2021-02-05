@@ -52,7 +52,14 @@ class LoginPage extends Component {
                         password: this.state.password
                     }
                 }).then(res => {
-                    this.props.handlePageChange("home");
+                    if (res.data.foundAccount) {
+                        this.props.changeLoggedStatus();
+                        this.props.handlePageChange("home");
+                    } else {
+                        this.setState({
+                            warningText: "Account not found. You have the wrong email or password."
+                        });
+                    }
                     }
                 );
             }

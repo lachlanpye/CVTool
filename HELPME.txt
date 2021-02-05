@@ -27,6 +27,5 @@ POST: "delete-resume" { name: string }
 POST: "delete-cover-letter" { name: string }
 
 # Start MySQL server
-Run cmd as admin
-cd C:\Program Files\MySQL\MySQL Server 8.0\bin
-mysqld --console
+Run as admin
+cd C:\Program Files\MySQL\MySQL Server 8.0\bin && mysqld --console
