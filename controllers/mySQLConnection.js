@@ -8,20 +8,21 @@ module.exports = function () {
         database: "heroku_bd2fdf768735b83"
     }
 
+    var conn;
     function handleDisconnect() {
         conn = mysql.createConnection(db_config);
         conn.connect(function(err) {
             if (err) {
                 console.log("Error when connecting to database.");
-                setTimeout(handleDisconnect, 2000);
+                setTimeout(handleDisconnect(), 2000);
             }
         });
         conn.on('error', function(err) {
             if (err.code === "PROTOCOL_CONNECTION_LOST") {
-            handleDisconnect(); 
-            } else {
-                throw err;
-            }
+                handleDisconnect(); 
+                } else {
+                    throw err;
+                }
         });
     }
 
