@@ -6,7 +6,7 @@ var getAccountID = require('./getAccountID');
 var conn = require('./mySQLConnection');
 
 const deleteAccount = (req, res, next) => {
-    conn.query("SELECT * FROM Accounts WHERE Email=? AND Pass=?", [req.body.email, md5(req.body.password)], function(err, result) {
+    conn().query("SELECT * FROM Accounts WHERE Email=? AND Pass=?", [req.body.email, md5(req.body.password)], function(err, result) {
         if (err) { res.status(400); throw err; } else {
             if (result.length > 0) {
                 conn.query("DELETE FROM Accounts WHERE Email=? AND Pass=?", [req.body.email, md5(req.body.password)], function(err, result) {

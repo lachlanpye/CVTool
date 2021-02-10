@@ -3,7 +3,7 @@ var md5 = require('md5');
 var conn = require('./mySQLConnection');
 
 const confirmLogin = (req, res, next) => {
-    conn.query("SELECT * FROM Accounts WHERE Email=? AND Pass=?", [req.body.email, md5(req.body.password)], function(err, result) {
+    conn().query("SELECT * FROM Accounts WHERE Email=? AND Pass=?", [req.body.email, md5(req.body.password)], function(err, result) {
         if (err) throw err;
         let flag = false;
         var data = null;
