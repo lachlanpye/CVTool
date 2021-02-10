@@ -7,6 +7,7 @@ const confirmLogin = (req, res, next) => {
         client.query("SELECT * FROM Accounts WHERE Email=? AND Pass=?", [req.body.email, md5(req.body.password)], function(err, result) {
             if (err) throw err;
             var found = (result.length > 0) ? true : false;
+            client.release();
             res.status(200).json({ foundAccount: found });
         });
     });

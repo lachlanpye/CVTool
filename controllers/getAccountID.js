@@ -8,8 +8,10 @@ module.exports = async function (email) {
             client.query("SELECT ID FROM Accounts WHERE Email=?", email, function(err, result) {
                 if (err) reject(err);
                 if (result.length > 0) {
+                    client.release();
                     resolve(Object.assign({}, result[0]));
                 } else {
+                    client.release();
                     resolve(-1);
                 }
             });

@@ -15,6 +15,7 @@ const deleteAccount = (req, res, next) => {
                             getAccountID(req.body.email).then(value => {
                                 fs.rmdir(__dirname + "./data/uuid_" + value.ID, { recursive: true }, function(err) {
                                     if (err) { res.status(400); throw err; } else {
+                                        client.release();
                                         res.status(200).json({ data: "Deletion successful" });
                                     }
                                 });

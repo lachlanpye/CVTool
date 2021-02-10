@@ -6,7 +6,7 @@ var pool = mysql.createPool({
     database: "heroku_bd2fdf768735b83"
 });
 
-exports.getConnection = function(callback) {
+exports.getConnection = function (callback) {
     pool.getConnection(function(err, conn) {
         if (err) {
             return callback(err);
