@@ -14,7 +14,7 @@ module.exports = function () {
         conn.connect(function(err) {
             if (err) {
                 console.log("Error when connecting to database.");
-                setTimeout(handleDisconnect(), 2000);
+                setTimeout(handleDisconnect, 2000);
             }
         });
         conn.on('error', function(err) {
