@@ -3,14 +3,16 @@ var md5 = require('md5');
 var conn = require('./mySQLConnection');
 
 const addAccount = (req, res, next) => {
-    conn().query("INSERT INTO Accounts (Email, Pass) VALUES (?, ?)", [req.body.email, md5(req.body.password)], function(err, result) {
-        if (err) {
-            if (err.errno === 1062) {
-                res.status(400).json({ data: "Email already in use."});
+    conn.getConnection(function(err, client) {
+        client.query("INSERT INTO Accounts (Email, Pass) VALUES (?, ?)", [req.body.email, md5(req.body.password)], function(err, result) {
+            if (err) {
+                if (err.errno === 1062) {
+                    res.status(400).json({ data: "Email already in use."});
+                }
+            } else {
+                res.status(200).json({ data: "OK" });
             }
-        } else {
-            res.status(200).json({ data: "OK" });
-        }
+        })
     })
 }
 
