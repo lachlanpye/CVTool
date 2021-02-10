@@ -6,10 +6,10 @@ var getAccountID = require('./getAccountID');
 
 const getCoverLetter = (req, res, next) => {
     getAccountID(req.body.email).then(value => {
-        var userDirPath = path.join(__dirname, './data/uuid_' + value.ID + "/resumes/" + req.body.filename + ".xml");
+        var userDirPath = path.join(__dirname, './data/uuid_' + value.ID + "/cover-letters/" + req.body.filename + ".xml");
         if (fs.existsSync(userDirPath)) {
                 fs.readFile(userDirPath, function(err, data) {
-                    if (!err) {
+                    if (err) {throw err} else {
                         var json = convert.xml2js(data, { compact: true });
                         if (!Array.isArray(json['cover-letter'].tags.tag)) {
                             json['cover-letter'].tags.tag = [json['cover-letter'].tags.tag];

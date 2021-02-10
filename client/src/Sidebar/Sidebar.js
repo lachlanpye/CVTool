@@ -8,7 +8,7 @@ class Sidebar extends Component {
                 <button onClick={() => this.props.changePage('home') }>Home</button>
                 {this.props.loggedIn 
                 ?   <div>
-                        <button onClick={() => this.props.changePage('logout') }>Log Out</button>
+                        <button onClick={() => this.props.changePage('account') }>Account</button>
                         <hr/>
                         <button onClick={() => this.props.changePage('find') }>Find</button>
                         <button onClick={() => this.props.changePage('new-resume') }>New Resume</button>

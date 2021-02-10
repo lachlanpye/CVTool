@@ -23,9 +23,9 @@ const submitResume = (req, res, next) => {
             if (!fs.existsSync(path.join(userDirPath, './resumes-meta.xml'))) fs.openSync(path.join(userDirPath, './resumes-meta.xml'), 'w')
 
             fs.writeFile(path.join(userDirPath, './resumes/' + req.body.name + '.pdf'), req.files.content.data, function (err, data) {
-                if (!err) {
+                if (err) {throw err} else {
                     fs.readFile(path.join(userDirPath, './resumes-meta.xml'), function(err, data) {
-                        if (!err) {
+                        if (err) {throw err} else {
                             let js = convert.xml2js(data, { compact: true });
                             if (isEmpty(js.resumes)) {
                                 js.resumes = {

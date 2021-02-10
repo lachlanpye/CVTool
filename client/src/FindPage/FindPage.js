@@ -102,22 +102,6 @@ class FindPage extends Component {
         }
     }
 
-    onDownload() {
-        axios({
-            method: "post",
-            url: "/api/v1/download-resume",
-            data: { filename: this.props.page },
-            responseType: 'blob'
-        }).then(res => {
-            const url = window.URL.createObjectURL(new Blob([res.data]));
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', this.state.fileName + '.pdf');
-            document.body.appendChild(link);
-            link.click();
-        });
-    }
-
     onDelete(filename, type) {
         if (type === "cover-letter") {
             axios({
@@ -187,6 +171,7 @@ class FindPage extends Component {
                                 filename={element.name} 
                                 filetype={element.type} 
                                 taglist={tagList} 
+                                email={this.props.email}
                             />;
                 } else {
                     return <></>;

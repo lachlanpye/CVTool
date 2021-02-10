@@ -33,8 +33,10 @@ router.post('/delete-cover-letter', deleteCoverLetter.deleteCoverLetter);
 router.post('/delete-resume', deleteResume.deleteResume);
 
 const addAccount = require('./../controllers/addAccount');
+const deleteAccount = require('./../controllers/deleteAccount');
 const confirmLogin = require('./../controllers/confirmLogin');
 router.post('/add-account', addAccount.addAccount);
+router.post('/delete-account', deleteAccount.deleteAccount);
 router.post('/confirm-login', confirmLogin.confirmLogin);
 
 module.exports = router;

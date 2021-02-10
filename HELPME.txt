@@ -25,10 +25,13 @@ POST: "get-resume-file-data" { name: string }
 POST: "download-resume" { name: string }
 POST: "delete-resume" { name: string }
 POST: "delete-cover-letter" { name: string }
+POST: "add-account" { email: string, password: string }
+POST: "confirm-account" { email: string, password: string }
+POST: "delete-account" { email: string }
 
 # Start MySQL server
 Run as admin
 cd C:\Program Files\MySQL\MySQL Server 8.0\bin && mysqld --console
 
-# Get to MySQL command line
+# Get to MySQL command line, or just open in MySQL Workbench
 cd C:\Program Files\MySQL\MySQL Server 8.0\bin && mysql CVToolDB --user=root --password
