@@ -15,7 +15,7 @@ class FindTableRow extends Component {
         axios({
             method: "post",
             url: "/api/v1/download-resume",
-            data: { filename: this.props.filename },
+            data: { filename: this.props.filename, email: this.props.email },
             responseType: 'blob'
         }).then(res => {
             const url = window.URL.createObjectURL(new Blob([res.data]));

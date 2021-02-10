@@ -7,7 +7,7 @@ class TextInput extends Component {
             <div className="text-input-expand">
                 <input 
                     id={this.props.id}
-                    type="text"
+                    type={this.props.type !== undefined ? this.props.type : "text" }
                     className="text-input-class"
                     value={this.props.value}
                     onChange={this.props.onChange}

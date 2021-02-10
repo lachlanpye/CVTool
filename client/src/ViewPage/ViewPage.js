@@ -32,7 +32,7 @@ class ViewPage extends Component {
             axios({
                 method: "post",
                 url: "/api/v1/get-cover-letter",
-                data: { filename: this.props.page }
+                data: { filename: this.props.page, email: this.props.email }
             }).then(res => {
                 this.setState({
                     fileName: res.data.name,
@@ -48,13 +48,13 @@ class ViewPage extends Component {
             axios({
                 method: "post",
                 url: "/api/v1/get-resume-file-data",
-                data: { filename: this.props.page }
+                data: { filename: this.props.page, email: this.props.email }
             }).then(dataRes => {
                 axios({
                     method: "post",
                     url: "/api/v1/get-resume",
                     responseType: "arraybuffer",
-                    data: { filename: this.props.page }
+                    data: { filename: this.props.page, email: this.props.email }
                 }).then(fileRes => {
                     this.setState({
                         fileName: dataRes.data.name,
@@ -79,7 +79,8 @@ class ViewPage extends Component {
                 data: {
                     name: this.state.fileName,
                     content: this.state.plainContent,
-                    tags: this.state.fileTags
+                    tags: this.state.fileTags,
+                    email: this.props.email
                 }
             });
 
@@ -106,7 +107,7 @@ class ViewPage extends Component {
         axios({
             method: "post",
             url: "/api/v1/download-resume",
-            data: { filename: this.props.page },
+            data: { filename: this.props.page, email: this.props.email },
             responseType: 'blob'
         }).then(res => {
             const url = window.URL.createObjectURL(new Blob([res.data]));
@@ -122,7 +123,7 @@ class ViewPage extends Component {
             axios({
                 method: "post",
                 url: "/api/v1/delete-cover-letter",
-                data: { name: this.state.fileName }
+                data: { name: this.state.fileName, email: this.props.email }
             });
         }
 
@@ -130,7 +131,7 @@ class ViewPage extends Component {
             axios({
                 method: "post",
                 url: "/api/v1/delete-resume",
-                data: { name: this.state.fileName }
+                data: { name: this.state.fileName, email: this.props.email }
             });
         }
 

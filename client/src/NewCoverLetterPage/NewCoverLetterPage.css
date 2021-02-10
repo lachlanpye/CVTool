@@ -7,12 +7,6 @@ div {
     to {opacity: 1}
 }
 
-.inputDiv {
-    padding-top: 10px;
-    float: left;
-    clear: left;
-}
-
 #cv-text {
     resize: vertical;
     width: 400px;

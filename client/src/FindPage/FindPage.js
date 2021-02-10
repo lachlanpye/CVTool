@@ -45,19 +45,21 @@ class FindPage extends Component {
         var promises = [];
         promises.push(new Promise((resolve, reject) => {
             axios({
-                method: "get",
-                url: "/api/v1/get-cover-letter-list"
+                method: "post",
+                url: "/api/v1/get-cover-letter-list",
+                data: { email: this.props.email }
             }).then((res) => {
                 var fileNames = res.data.map(file => {
-                    return { "name": file.name, "tags": file.tags, "type": "cover-letter" }
+                    return { "name": file.name, "tags": file.tags, "type": "cover-letter", "email": this.props.email }
                 });
                 resolve({ fileList: fileNames });
             });
         }));
         promises.push(new Promise((resolve, reject) => {
             axios({
-                method: "get",
-                url: "/api/v1/get-resume-list"
+                method: "post",
+                url: "/api/v1/get-resume-list",
+                data: { email: this.props.email }
             }).then((res) => {
                 var fileNames = res.data.map(file => {
                     return { "name": file.name, "tags": file.tags, "type": "resume" }
@@ -100,28 +102,12 @@ class FindPage extends Component {
         }
     }
 
-    onDownload() {
-        axios({
-            method: "post",
-            url: "/api/v1/download-resume",
-            data: { filename: this.props.page },
-            responseType: 'blob'
-        }).then(res => {
-            const url = window.URL.createObjectURL(new Blob([res.data]));
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', this.state.fileName + '.pdf');
-            document.body.appendChild(link);
-            link.click();
-        });
-    }
-
     onDelete(filename, type) {
         if (type === "cover-letter") {
             axios({
                 method: "post",
                 url: "/api/v1/delete-cover-letter",
-                data: { name: filename }
+                data: { name: filename, email: this.props.email },
             }).then(res => {
                 this.getFiles();
             });
@@ -130,7 +116,7 @@ class FindPage extends Component {
             axios({
                 method: "post",
                 url: "/api/v1/delete-resume",
-                data: { name: filename }
+                data: { name: filename, email: this.props.email }
             }).then(res => {
                 this.getFiles();
             });
@@ -185,6 +171,7 @@ class FindPage extends Component {
                                 filename={element.name} 
                                 filetype={element.type} 
                                 taglist={tagList} 
+                                email={this.props.email}
                             />;
                 } else {
                     return <></>;

@@ -1,0 +1,13 @@
+#slide-open-div {
+    opacity: 0;
+    max-height: 0;
+  
+    animation-name: slide-open;
+    animation-fill-mode: forwards;
+    animation-duration: 1s;
+  }
+  
+  @keyframes slide-open {
+    from { max-height: 0; opacity: 0; }
+    to { max-height: 15em; opacity: 1; }
+  }
