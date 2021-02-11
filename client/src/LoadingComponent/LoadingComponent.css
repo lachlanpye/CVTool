@@ -1,0 +1,30 @@
+.spinner-div {
+    border: 5px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 5px solid #3498db;
+
+    width: 18px;
+    height: 18px;
+
+    -webkit-animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
+
+    transform: translate(0, 10em);
+}
+
+.loading-component-div {
+    white-space: nowrap;
+}
+.loading-component-div > * {
+    display: inline-block;
+}
+
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}

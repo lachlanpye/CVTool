@@ -4,6 +4,7 @@ import './FindPage.css';
 import TagSearchBar from './../TagSearchBar/TagSearchBar';
 import FindTableRow from './FindTableRow/FindTableRow';
 import axios from 'axios';
+import LoadingComponent from '../LoadingComponent/LoadingComonent';
 
 class FindPage extends Component {
     constructor(props) {
@@ -13,7 +14,8 @@ class FindPage extends Component {
             'searchType': 'inc',
             'filter': [],
 
-            'fileList': []
+            'fileList': [],
+            'loadingTable': true
         }
 
         this.onSelectChange = this.onSelectChange.bind(this);
@@ -70,7 +72,8 @@ class FindPage extends Component {
 
         Promise.all(promises).then(values => {
             this.setState({
-                fileList: values[0].fileList.concat(values[1].fileList)
+                fileList: values[0].fileList.concat(values[1].fileList),
+                loadingTable: false
             });
         });
     }
@@ -200,7 +203,9 @@ class FindPage extends Component {
                             <th>Matching tags</th>
                             <th>Options</th>
                         </tr>
-                        { tableRows }
+                        <LoadingComponent loading={this.state.loadingTable}>
+                            { tableRows }
+                        </LoadingComponent>
                     </table>
                     <br/>
                 </div>

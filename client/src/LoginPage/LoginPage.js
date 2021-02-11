@@ -4,6 +4,7 @@ import './LoginPage.css';
 import axios from 'axios';
 import TextInput from './../TextInput/TextInput';
 import Button from './../Button/Button';
+import LoadingComponent from './../LoadingComponent/LoadingComonent';
 
 class LoginPage extends Component {
     constructor(props) {
@@ -13,6 +14,8 @@ class LoginPage extends Component {
             "email": "",
             "password": "",
             "warningText": "",
+
+            "confirmLoginLoading": false
         }
 
         this.onPasswordChange = this.onPasswordChange.bind(this);
@@ -43,7 +46,8 @@ class LoginPage extends Component {
                 });
             } else {
                 this.setState({
-                    warningText: ""
+                    warningText: "",
+                    confirmLoginLoading: true
                 });
                 axios({
                     method: "post",
@@ -58,11 +62,11 @@ class LoginPage extends Component {
                         this.props.handlePageChange("home");
                     } else {
                         this.setState({
-                            warningText: "Account not found. You have the wrong email or password."
+                            warningText: "Account not found. You have the wrong email or password.",
+                            confirmLoginLoading: false
                         });
                     }
-                    }
-                );
+                });
             }
         }
     }
@@ -81,14 +85,14 @@ class LoginPage extends Component {
                 </div>
 
                 <div className="inputDiv">
-                <p className="warning-text">{this.state.warningText}</p>
-                <Button value="Login" onClick={this.onLogin}/>
-                </div>
+                <LoadingComponent loading={this.state.confirmLoginLoading}>
+                    <p className="warning-text">{this.state.warningText}</p>
+                    <Button value="Login" onClick={this.onLogin}/>
 
-                <div className="inputDiv">
-                <hr/>
-                <p>New here?</p>
-                <Button value="Create account" onClick={() => this.props.handlePageChange("create-account")}/>
+                    <hr/>
+                    <p>New here?</p>
+                    <Button value="Create account" onClick={() => this.props.handlePageChange("create-account")}/>
+                </LoadingComponent>
                 </div>
             </div>
         );

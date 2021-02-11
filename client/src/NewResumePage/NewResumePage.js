@@ -8,6 +8,7 @@ import FileChooser from './FileChooser/FileChooser';
 import TagSearchBar from './../TagSearchBar/TagSearchBar';
 import TextInput from './../TextInput/TextInput';
 import Button from '../Button/Button';
+import LoadingComponent from '../LoadingComponent/LoadingComonent';
 
 class NewResumePage extends Component {
     constructor(props) {
@@ -19,7 +20,8 @@ class NewResumePage extends Component {
             tags: [],
             warnText: "",
 
-            showSubmitOption: false
+            showSubmitOption: false,
+            loadingSubmission: false
         };
 
         this.onResumeFileNameChange = this.onResumeFileNameChange.bind(this);
@@ -69,6 +71,10 @@ class NewResumePage extends Component {
                     warnText: "Enter at least one tag for this resume."
                 });
             } else {
+                this.setState({
+                    loadingSubmission: true
+                })
+
                 const data = new FormData();
                 data.append('name', this.state.resumeFileName);
                 data.append('content', this.state.resumeFile);
@@ -116,7 +122,11 @@ class NewResumePage extends Component {
                 <PDFViewer id="pdf-view" pdf={this.state.resumeFile} onSuccess={this.onResumeUploadSuccess} onFailure={this.onResumeUploadFailure}/><br/>
                 </div>
                 
-                { submit }
+                <div className="inputDiv">
+                    <LoadingComponent loading={this.state.loadingSubmission}>
+                        { submit }
+                    </LoadingComponent>
+                </div>
             </div>
         );
     }

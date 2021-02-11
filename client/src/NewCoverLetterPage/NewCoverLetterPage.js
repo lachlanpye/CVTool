@@ -5,6 +5,7 @@ import './NewCoverLetterPage.css';
 import TagSearchBar from '../TagSearchBar/TagSearchBar';
 import TextInput from '../TextInput/TextInput';
 import Button from '../Button/Button';
+import LoadingComponent from '../LoadingComponent/LoadingComonent';
 
 class NewCoverLetterPage extends Component {
     constructor(props) {
@@ -15,7 +16,8 @@ class NewCoverLetterPage extends Component {
             "cvTextValue": "",
             "tags": [],
 
-            "warnText": ""
+            "warnText": "",
+            "loadingSubmission": false
         }
 
         this.onSubmit = this.onSubmit.bind(this);
@@ -56,6 +58,9 @@ class NewCoverLetterPage extends Component {
                         warnText: "Enter at least one tag for this cover letter."
                     });
                 } else {
+                    this.setState({
+                        loadingSubmission: true
+                    });
                     axios({
                         method: "post",
                         url: "/api/v1/submit-cover-letter",
@@ -91,12 +96,11 @@ class NewCoverLetterPage extends Component {
                 </div>
 
                 <div className="inputDiv">
-                <TagSearchBar onTagChange={this.onTagChange}/>
-                </div>
-
-                <div className="inputDiv">
-                { warnText } 
-                <Button id="submit-button" value="Submit" onClick={this.onSubmit}/>
+                <LoadingComponent loading={this.state.loadingSubmission}>
+                    <TagSearchBar onTagChange={this.onTagChange}/>
+                    { warnText } 
+                    <Button id="submit-button" value="Submit" onClick={this.onSubmit}/>
+                </LoadingComponent>
                 </div>
             </div>
         );

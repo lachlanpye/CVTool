@@ -4,6 +4,7 @@ import './ViewPage.css';
 import Button from './../Button/Button';
 import PDFViewer from './../PDFViewer/PDFViewer';
 import axios from 'axios';
+import LoadingComponent from '../LoadingComponent/LoadingComonent';
 
 class ViewPage extends Component {
     constructor(props) {
@@ -16,7 +17,8 @@ class ViewPage extends Component {
             "fileType": "",
 
             "plainContent": "",
-            "mode": "view"
+            "mode": "view",
+            "loadingFile": true
         }
 
         this.swapMode = this.swapMode.bind(this);
@@ -40,6 +42,7 @@ class ViewPage extends Component {
                     fileTags: res.data.tags,
                     fileType: "cover-letter",
                     plainContent: res.data.content,
+                    loadingFile: false
                 });
             });
         }
@@ -61,7 +64,8 @@ class ViewPage extends Component {
                         fileContent: fileRes.data,
                         fileTags: dataRes.data.tags,
                         fileType: "resume",
-                        plainContent: null
+                        plainContent: null,
+                        loadingFile: false
                     });
                 });
             });
@@ -172,15 +176,17 @@ class ViewPage extends Component {
 
         return (
             <div>
-                <h1 id="file-name">{this.state.fileName}</h1>
-                { content }
-                <p id="file-tags">Tags: {tags}</p>
+                <LoadingComponent loading={this.state.loadingFile}>
+                    <h1 id="file-name">{this.state.fileName}</h1>
+                    { content }
+                    <p id="file-tags">Tags: {tags}</p>
 
                 <div id="view-page-options">
                     { modeButton }
                     { saveButton }
                     <Button value="Delete" onClick={this.onDelete} />
                 </div><br/>
+                </LoadingComponent>
             </div>
         );
     }
