@@ -10,6 +10,7 @@ const app = express();
 
 // Set backend port to env variable or port 5000
 const port = process.env.PORT || 5000;
+const dotenv = require('dotenv').config();
 
 // Show incoming requests
 app.use((req, res, next) => {

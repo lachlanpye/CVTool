@@ -1,9 +1,9 @@
 var mysql = require('mysql');
 var pool = mysql.createPool({
-    host: "us-cdbr-east-03.cleardb.com",
-    user: "be11422e65b2a7",
-    password: "aec972fe",
-    database: "heroku_bd2fdf768735b83"
+    host: process.env.DB_HOST,
+    user: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
 });
 
 exports.getConnection = function (callback) {
